@@ -2,8 +2,11 @@ from fastmcp import FastMCP
 from tools.search_bus import search_bus_tool
 from tools.login import login_tool
 from tools.seats import get_all_seats
-from pydantic import BaseModel, Field
 from tools.create_ticket import create_ticket_tool 
+from tools.get_tickets import get_tickets_tools, get_ticket_details_tool
+from tools.cancel_ticket import cancle_ticket_tool
+
+from pydantic import BaseModel, Field
 
 class Passenger(BaseModel):
     name: str = Field(..., description="Passenger full name")
@@ -52,6 +55,24 @@ def create_ticket(
     """This tool is used to book a ticket and return the details of ticket number of seats must be equal to number of passengers"""
 
     return create_ticket_tool(tripId, from_city, to_city, price, seats, passengers, ticketdate, token)
+
+
+@mcp.tool()
+def get_tickets(token: str):
+    """this tool returns all the tickets of a user """
+    return get_tickets_tools(token)
+
+@mcp.tool()
+def get_ticket_details(ticketId:str , token: str):
+    """this Tool returns the details of specific ticket by ticketID """
+     
+    return get_ticket_details_tool(ticketId , token)
+
+@mcp.tool()
+def cancle_ticket(ticketId : str, token:str):
+    """This tool is used to cancle ticket using ticketId"""
+
+    return cancle_ticket_tool(ticketId, token)
 
 if __name__ == "__main__":
     mcp.run()

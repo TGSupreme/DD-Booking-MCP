@@ -19,3 +19,7 @@ def get(path, headers=None):
 def put(path, payload=None, headers=None):
     res = requests.put(BASE_URL + path, json=payload, headers=headers)
     return res.json()
+
+def delete(path, headers=None):
+    res = requests.delete(BASE_URL + path, headers=headers)
+    return res.json()
