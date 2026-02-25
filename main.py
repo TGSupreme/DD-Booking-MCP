@@ -75,4 +75,4 @@ def cancle_ticket(ticketId : str, token:str):
     return cancle_ticket_tool(ticketId, token)
 
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="http", host="0.0.0.0", port=8000)
