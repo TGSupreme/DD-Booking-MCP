@@ -1,10 +1,11 @@
 from fastmcp import FastMCP
 from tools.search_bus import search_bus_tool
-from tools.login import login_tool
+from tools.login import validate_tool
 from tools.seats import get_all_seats
 from tools.create_ticket import create_ticket_tool 
 from tools.get_tickets import get_tickets_tools, get_ticket_details_tool
 from tools.cancel_ticket import cancle_ticket_tool
+import json
 
 from pydantic import BaseModel, Field
 
@@ -24,9 +25,18 @@ def search_bus(from_city: str, to_city: str, date: str | None):
     return search_bus_tool(from_city, to_city, date)
 
 @mcp.tool()
-def login(email: str, password: str):
-    """this tool log in the user into the system and return token that is required for some tasks"""
-    return login_tool(email, password)
+def auth(email:str):
+    """ this tool generate the otp for the user validation on the QuickBus server."""
+    response = {
+        "message" : "OTP generated successfully."
+    }
+    
+    return json.dumps(response)
+
+@mcp.tool()
+def validate(email: str, otp: str): 
+    """this tool validates the user using email and OTP and return token that is required for some tasks"""
+    return validate_tool(email, otp)
 
 @mcp.tool()
 def get_available_seats(tripId: str,
