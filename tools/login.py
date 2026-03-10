@@ -15,7 +15,7 @@ def validate_credentials(payload):
     
     return True
     
-def login_tool(email, password):
+def validate_tool(email, password):
 
     payload = {
         "email" : email,
