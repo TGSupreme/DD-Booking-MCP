@@ -6,6 +6,6 @@ def cancle_ticket_tool(ticketId: str, token:str):
         "Authorization": f"Bearer {token}"
     }
 
-    res = put(f"/ticket/{ticketId}", headers)
+    res = put(f"/ticket/{ticketId}", headers= headers)
 
     return res
